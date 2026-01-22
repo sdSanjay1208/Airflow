@@ -1,0 +1,15 @@
+[2025-12-16T08:53:11.587+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: hello_world_dag.print_hello scheduled__2025-12-15T00:00:00+00:00 [queued]>
+[2025-12-16T08:53:11.596+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: hello_world_dag.print_hello scheduled__2025-12-15T00:00:00+00:00 [queued]>
+[2025-12-16T08:53:11.597+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 2
+[2025-12-16T08:53:11.610+0000] {taskinstance.py:2217} INFO - Executing <Task(PythonOperator): print_hello> on 2025-12-15 00:00:00+00:00
+[2025-12-16T08:53:11.619+0000] {standard_task_runner.py:60} INFO - Started process 403 to run task
+[2025-12-16T08:53:11.623+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'hello_world_dag', 'print_hello', 'scheduled__2025-12-15T00:00:00+00:00', '--job-id', '10', '--raw', '--subdir', 'DAGS_FOLDER/test_hello_dag.py', '--cfg-path', '/tmp/tmp91s09mg_']
+[2025-12-16T08:53:11.627+0000] {standard_task_runner.py:88} INFO - Job 10: Subtask print_hello
+[2025-12-16T08:53:11.649+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.8/site-packages/***/settings.py:194 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-12-16T08:53:11.712+0000] {task_command.py:423} INFO - Running <TaskInstance: hello_world_dag.print_hello scheduled__2025-12-15T00:00:00+00:00 [running]> on host 057de9163787
+[2025-12-16T08:53:11.814+0000] {taskinstance.py:2513} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='sanjay' AIRFLOW_CTX_DAG_ID='hello_world_dag' AIRFLOW_CTX_TASK_ID='print_hello' AIRFLOW_CTX_EXECUTION_DATE='2025-12-15T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-12-15T00:00:00+00:00'
+[2025-12-16T08:53:11.816+0000] {logging_mixin.py:188} INFO - Hello from Airflow, Sanjay!
+[2025-12-16T08:53:11.817+0000] {python.py:202} INFO - Done. Returned value was: None
+[2025-12-16T08:53:11.832+0000] {taskinstance.py:1149} INFO - Marking task as SUCCESS. dag_id=hello_world_dag, task_id=print_hello, execution_date=20251215T000000, start_date=20251216T085311, end_date=20251216T085311
+[2025-12-16T08:53:11.877+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2025-12-16T08:53:11.896+0000] {taskinstance.py:3312} INFO - 0 downstream tasks scheduled from follow-on schedule check

@@ -1,0 +1,21 @@
+[2025-12-16T13:22:44.946+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: amazon_etl_pipeline.validate_pipeline manual__2025-12-16T13:05:57.074075+00:00 [queued]>
+[2025-12-16T13:22:44.956+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: amazon_etl_pipeline.validate_pipeline manual__2025-12-16T13:05:57.074075+00:00 [queued]>
+[2025-12-16T13:22:44.956+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 2
+[2025-12-16T13:22:45.284+0000] {taskinstance.py:2217} INFO - Executing <Task(PythonOperator): validate_pipeline> on 2025-12-16 13:05:57.074075+00:00
+[2025-12-16T13:22:45.295+0000] {standard_task_runner.py:60} INFO - Started process 573 to run task
+[2025-12-16T13:22:45.301+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'amazon_etl_pipeline', 'validate_pipeline', 'manual__2025-12-16T13:05:57.074075+00:00', '--job-id', '53', '--raw', '--subdir', 'DAGS_FOLDER/amazon_etl_pipeline.py', '--cfg-path', '/tmp/tmp4qow0d32']
+[2025-12-16T13:22:45.305+0000] {standard_task_runner.py:88} INFO - Job 53: Subtask validate_pipeline
+[2025-12-16T13:22:45.328+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.8/site-packages/***/settings.py:194 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-12-16T13:22:45.396+0000] {task_command.py:423} INFO - Running <TaskInstance: amazon_etl_pipeline.validate_pipeline manual__2025-12-16T13:05:57.074075+00:00 [running]> on host a40439abdc09
+[2025-12-16T13:22:45.528+0000] {taskinstance.py:2513} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='sanjay' AIRFLOW_CTX_DAG_ID='amazon_etl_pipeline' AIRFLOW_CTX_TASK_ID='validate_pipeline' AIRFLOW_CTX_EXECUTION_DATE='2025-12-16T13:05:57.074075+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-12-16T13:05:57.074075+00:00'
+[2025-12-16T13:22:49.385+0000] {logging_mixin.py:188} INFO - 🔍 ETL Validation Results
+[2025-12-16T13:22:49.386+0000] {logging_mixin.py:188} INFO - raw_count: 900000
+[2025-12-16T13:22:49.386+0000] {logging_mixin.py:188} INFO - stg_count: 900000
+[2025-12-16T13:22:49.387+0000] {logging_mixin.py:188} INFO - cur_count: 900000
+[2025-12-16T13:22:49.387+0000] {logging_mixin.py:188} INFO - null_order_id: 0
+[2025-12-16T13:22:49.387+0000] {logging_mixin.py:188} INFO - null_total_amount: 0
+[2025-12-16T13:22:49.389+0000] {logging_mixin.py:188} INFO - ✅ Data validation passed
+[2025-12-16T13:22:49.389+0000] {python.py:202} INFO - Done. Returned value was: None
+[2025-12-16T13:22:49.402+0000] {taskinstance.py:1149} INFO - Marking task as SUCCESS. dag_id=amazon_etl_pipeline, task_id=validate_pipeline, execution_date=20251216T130557, start_date=20251216T132244, end_date=20251216T132249
+[2025-12-16T13:22:49.449+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2025-12-16T13:22:49.470+0000] {taskinstance.py:3312} INFO - 0 downstream tasks scheduled from follow-on schedule check

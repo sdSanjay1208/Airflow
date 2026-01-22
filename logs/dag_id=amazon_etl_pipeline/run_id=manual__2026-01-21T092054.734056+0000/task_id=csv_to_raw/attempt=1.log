@@ -1,0 +1,16 @@
+[2026-01-21T09:20:57.189+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: amazon_etl_pipeline.csv_to_raw manual__2026-01-21T09:20:54.734056+00:00 [queued]>
+[2026-01-21T09:20:57.204+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: amazon_etl_pipeline.csv_to_raw manual__2026-01-21T09:20:54.734056+00:00 [queued]>
+[2026-01-21T09:20:57.206+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 2
+[2026-01-21T09:20:57.465+0000] {taskinstance.py:2217} INFO - Executing <Task(PythonOperator): csv_to_raw> on 2026-01-21 09:20:54.734056+00:00
+[2026-01-21T09:20:57.479+0000] {standard_task_runner.py:60} INFO - Started process 2142 to run task
+[2026-01-21T09:20:57.487+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'amazon_etl_pipeline', 'csv_to_raw', 'manual__2026-01-21T09:20:54.734056+00:00', '--job-id', '123', '--raw', '--subdir', 'DAGS_FOLDER/amazon_etl_pipeline.py', '--cfg-path', '/tmp/tmpohcdpp6i']
+[2026-01-21T09:20:57.494+0000] {standard_task_runner.py:88} INFO - Job 123: Subtask csv_to_raw
+[2026-01-21T09:20:57.533+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.8/site-packages/***/settings.py:194 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2026-01-21T09:20:57.630+0000] {task_command.py:423} INFO - Running <TaskInstance: amazon_etl_pipeline.csv_to_raw manual__2026-01-21T09:20:54.734056+00:00 [running]> on host 500e7f90f5b6
+[2026-01-21T09:20:57.874+0000] {taskinstance.py:2513} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='sanjay' AIRFLOW_CTX_DAG_ID='amazon_etl_pipeline' AIRFLOW_CTX_TASK_ID='csv_to_raw' AIRFLOW_CTX_EXECUTION_DATE='2026-01-21T09:20:54.734056+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-01-21T09:20:54.734056+00:00'
+[2026-01-21T09:24:17.077+0000] {logging_mixin.py:188} INFO - ✅ CSV successfully loaded into RAW layer
+[2026-01-21T09:24:17.080+0000] {logging_mixin.py:188} INFO - 📦 Dataset checksum: 6e3eebe73d7ad32999921c99a3c439d6
+[2026-01-21T09:24:17.193+0000] {python.py:202} INFO - Done. Returned value was: None
+[2026-01-21T09:24:17.226+0000] {taskinstance.py:1149} INFO - Marking task as SUCCESS. dag_id=amazon_etl_pipeline, task_id=csv_to_raw, execution_date=20260121T092054, start_date=20260121T092057, end_date=20260121T092417
+[2026-01-21T09:24:17.315+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-01-21T09:24:17.368+0000] {taskinstance.py:3312} INFO - 1 downstream tasks scheduled from follow-on schedule check

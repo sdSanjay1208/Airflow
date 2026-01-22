@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS cur_amazon (
+    amazon_sk INT AUTO_INCREMENT PRIMARY KEY,
+    order_id VARCHAR(50),
+    customer_id VARCHAR(50),
+    product_id VARCHAR(50),
+    category VARCHAR(100),
+    seller_id VARCHAR(50),
+    order_date DATE,
+    load_date DATE,
+    quantity INT,
+    unit_price DECIMAL(10,2),
+    discount DECIMAL(10,2),
+    tax DECIMAL(10,2),
+    shipping_cost DECIMAL(10,2),
+    total_amount DECIMAL(12,2),
+    payment_method TEXT,
+    order_status TEXT,
+    city TEXT,
+    state TEXT,
+    country TEXT,
+    is_current BOOLEAN
+);

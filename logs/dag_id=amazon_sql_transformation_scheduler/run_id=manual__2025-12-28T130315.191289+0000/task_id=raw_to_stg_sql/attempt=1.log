@@ -1,0 +1,15 @@
+[2025-12-28T13:03:16.452+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: amazon_sql_transformation_scheduler.raw_to_stg_sql manual__2025-12-28T13:03:15.191289+00:00 [queued]>
+[2025-12-28T13:03:16.466+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: amazon_sql_transformation_scheduler.raw_to_stg_sql manual__2025-12-28T13:03:15.191289+00:00 [queued]>
+[2025-12-28T13:03:16.467+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 2
+[2025-12-28T13:03:16.490+0000] {taskinstance.py:2217} INFO - Executing <Task(PythonOperator): raw_to_stg_sql> on 2025-12-28 13:03:15.191289+00:00
+[2025-12-28T13:03:16.500+0000] {standard_task_runner.py:60} INFO - Started process 231 to run task
+[2025-12-28T13:03:16.508+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'amazon_sql_transformation_scheduler', 'raw_to_stg_sql', 'manual__2025-12-28T13:03:15.191289+00:00', '--job-id', '88', '--raw', '--subdir', 'DAGS_FOLDER/amazon_sql_scheduler_dag.py', '--cfg-path', '/tmp/tmphpqhkkqh']
+[2025-12-28T13:03:16.513+0000] {standard_task_runner.py:88} INFO - Job 88: Subtask raw_to_stg_sql
+[2025-12-28T13:03:16.549+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.8/site-packages/***/settings.py:194 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-12-28T13:03:16.651+0000] {task_command.py:423} INFO - Running <TaskInstance: amazon_sql_transformation_scheduler.raw_to_stg_sql manual__2025-12-28T13:03:15.191289+00:00 [running]> on host 27ee9b98b975
+[2025-12-28T13:03:16.803+0000] {taskinstance.py:2513} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='sanjay' AIRFLOW_CTX_DAG_ID='amazon_sql_transformation_scheduler' AIRFLOW_CTX_TASK_ID='raw_to_stg_sql' AIRFLOW_CTX_EXECUTION_DATE='2025-12-28T13:03:15.191289+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-12-28T13:03:15.191289+00:00'
+[2025-12-28T13:03:42.597+0000] {logging_mixin.py:188} INFO - Executed SQL file: /opt/***/data_models/raw_to_stg_transform.sql
+[2025-12-28T13:03:42.599+0000] {python.py:202} INFO - Done. Returned value was: None
+[2025-12-28T13:03:42.615+0000] {taskinstance.py:1149} INFO - Marking task as SUCCESS. dag_id=amazon_sql_transformation_scheduler, task_id=raw_to_stg_sql, execution_date=20251228T130315, start_date=20251228T130316, end_date=20251228T130342
+[2025-12-28T13:03:42.683+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2025-12-28T13:03:42.716+0000] {taskinstance.py:3312} INFO - 1 downstream tasks scheduled from follow-on schedule check

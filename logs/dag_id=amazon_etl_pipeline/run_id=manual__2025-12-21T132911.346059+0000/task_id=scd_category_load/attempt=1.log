@@ -1,0 +1,15 @@
+[2025-12-21T13:33:30.184+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: amazon_etl_pipeline.scd_category_load manual__2025-12-21T13:29:11.346059+00:00 [queued]>
+[2025-12-21T13:33:30.193+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: amazon_etl_pipeline.scd_category_load manual__2025-12-21T13:29:11.346059+00:00 [queued]>
+[2025-12-21T13:33:30.193+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 2
+[2025-12-21T13:33:30.453+0000] {taskinstance.py:2217} INFO - Executing <Task(PythonOperator): scd_category_load> on 2025-12-21 13:29:11.346059+00:00
+[2025-12-21T13:33:30.465+0000] {standard_task_runner.py:60} INFO - Started process 364 to run task
+[2025-12-21T13:33:30.475+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'amazon_etl_pipeline', 'scd_category_load', 'manual__2025-12-21T13:29:11.346059+00:00', '--job-id', '78', '--raw', '--subdir', 'DAGS_FOLDER/amazon_etl_pipeline.py', '--cfg-path', '/tmp/tmp9ujyvu8b']
+[2025-12-21T13:33:30.478+0000] {standard_task_runner.py:88} INFO - Job 78: Subtask scd_category_load
+[2025-12-21T13:33:30.502+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.8/site-packages/***/settings.py:194 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-12-21T13:33:30.578+0000] {task_command.py:423} INFO - Running <TaskInstance: amazon_etl_pipeline.scd_category_load manual__2025-12-21T13:29:11.346059+00:00 [running]> on host 216232eb5054
+[2025-12-21T13:33:30.697+0000] {taskinstance.py:2513} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='sanjay' AIRFLOW_CTX_DAG_ID='amazon_etl_pipeline' AIRFLOW_CTX_TASK_ID='scd_category_load' AIRFLOW_CTX_EXECUTION_DATE='2025-12-21T13:29:11.346059+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-12-21T13:29:11.346059+00:00'
+[2025-12-21T13:33:33.211+0000] {logging_mixin.py:188} INFO - SCD Type 2 Category Load Completed
+[2025-12-21T13:33:33.212+0000] {python.py:202} INFO - Done. Returned value was: None
+[2025-12-21T13:33:33.225+0000] {taskinstance.py:1149} INFO - Marking task as SUCCESS. dag_id=amazon_etl_pipeline, task_id=scd_category_load, execution_date=20251221T132911, start_date=20251221T133330, end_date=20251221T133333
+[2025-12-21T13:33:33.261+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2025-12-21T13:33:33.295+0000] {taskinstance.py:3312} INFO - 1 downstream tasks scheduled from follow-on schedule check

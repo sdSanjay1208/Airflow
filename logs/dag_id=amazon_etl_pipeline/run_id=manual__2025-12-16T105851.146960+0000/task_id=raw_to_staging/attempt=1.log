@@ -1,0 +1,40 @@
+[2025-12-16T11:01:00.889+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: amazon_etl_pipeline.raw_to_staging manual__2025-12-16T10:58:51.146960+00:00 [queued]>
+[2025-12-16T11:01:00.896+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: amazon_etl_pipeline.raw_to_staging manual__2025-12-16T10:58:51.146960+00:00 [queued]>
+[2025-12-16T11:01:00.897+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 2
+[2025-12-16T11:01:00.910+0000] {taskinstance.py:2217} INFO - Executing <Task(PythonOperator): raw_to_staging> on 2025-12-16 10:58:51.146960+00:00
+[2025-12-16T11:01:00.918+0000] {standard_task_runner.py:60} INFO - Started process 336 to run task
+[2025-12-16T11:01:00.923+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'amazon_etl_pipeline', 'raw_to_staging', 'manual__2025-12-16T10:58:51.146960+00:00', '--job-id', '27', '--raw', '--subdir', 'DAGS_FOLDER/amazon_etl_pipeline.py', '--cfg-path', '/tmp/tmp_l6xxjy_']
+[2025-12-16T11:01:00.927+0000] {standard_task_runner.py:88} INFO - Job 27: Subtask raw_to_staging
+[2025-12-16T11:01:00.956+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.8/site-packages/***/settings.py:194 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-12-16T11:01:01.228+0000] {task_command.py:423} INFO - Running <TaskInstance: amazon_etl_pipeline.raw_to_staging manual__2025-12-16T10:58:51.146960+00:00 [running]> on host e47932a0ff58
+[2025-12-16T11:01:01.309+0000] {taskinstance.py:2513} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='sanjay' AIRFLOW_CTX_DAG_ID='amazon_etl_pipeline' AIRFLOW_CTX_TASK_ID='raw_to_staging' AIRFLOW_CTX_EXECUTION_DATE='2025-12-16T10:58:51.146960+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-12-16T10:58:51.146960+00:00'
+[2025-12-16T11:01:01.452+0000] {taskinstance.py:2731} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/mysql/connector/connection_cext.py", line 661, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Truncated incorrect DOUBLE value: 'ORD0000001'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 444, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 414, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 200, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 217, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/scripts/raw_to_staging.py", line 57, in raw_to_staging
+    cursor.execute(transform_sql)
+  File "/home/airflow/.local/lib/python3.8/site-packages/mysql/connector/cursor_cext.py", line 374, in execute
+    result = self._cnx.cmd_query(
+  File "/home/airflow/.local/lib/python3.8/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 83, in wrapper
+    result = method(cnx, *args, **kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/mysql/connector/connection_cext.py", line 669, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.DataError: 1292 (22007): Truncated incorrect DOUBLE value: 'ORD0000001'
+[2025-12-16T11:01:01.473+0000] {taskinstance.py:1149} INFO - Marking task as UP_FOR_RETRY. dag_id=amazon_etl_pipeline, task_id=raw_to_staging, execution_date=20251216T105851, start_date=20251216T110100, end_date=20251216T110101
+[2025-12-16T11:01:01.489+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 27 for task raw_to_staging (1292 (22007): Truncated incorrect DOUBLE value: 'ORD0000001'; 336)
+[2025-12-16T11:01:01.538+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2025-12-16T11:01:01.749+0000] {taskinstance.py:3312} INFO - 0 downstream tasks scheduled from follow-on schedule check

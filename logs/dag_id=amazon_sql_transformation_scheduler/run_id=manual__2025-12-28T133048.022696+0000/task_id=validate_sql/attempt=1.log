@@ -1,0 +1,42 @@
+[2025-12-28T13:31:12.295+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: amazon_sql_transformation_scheduler.validate_sql manual__2025-12-28T13:30:48.022696+00:00 [queued]>
+[2025-12-28T13:31:12.303+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: amazon_sql_transformation_scheduler.validate_sql manual__2025-12-28T13:30:48.022696+00:00 [queued]>
+[2025-12-28T13:31:12.304+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 2
+[2025-12-28T13:31:12.314+0000] {taskinstance.py:2217} INFO - Executing <Task(PythonOperator): validate_sql> on 2025-12-28 13:30:48.022696+00:00
+[2025-12-28T13:31:12.320+0000] {standard_task_runner.py:60} INFO - Started process 247 to run task
+[2025-12-28T13:31:12.324+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'amazon_sql_transformation_scheduler', 'validate_sql', 'manual__2025-12-28T13:30:48.022696+00:00', '--job-id', '99', '--raw', '--subdir', 'DAGS_FOLDER/amazon_sql_scheduler_dag.py', '--cfg-path', '/tmp/tmp1i_2f19z']
+[2025-12-28T13:31:12.326+0000] {standard_task_runner.py:88} INFO - Job 99: Subtask validate_sql
+[2025-12-28T13:31:12.342+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.8/site-packages/***/settings.py:194 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-12-28T13:31:12.395+0000] {task_command.py:423} INFO - Running <TaskInstance: amazon_sql_transformation_scheduler.validate_sql manual__2025-12-28T13:30:48.022696+00:00 [running]> on host a603e3dba66c
+[2025-12-28T13:31:12.483+0000] {taskinstance.py:2513} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='sanjay' AIRFLOW_CTX_DAG_ID='amazon_sql_transformation_scheduler' AIRFLOW_CTX_TASK_ID='validate_sql' AIRFLOW_CTX_EXECUTION_DATE='2025-12-28T13:30:48.022696+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-12-28T13:30:48.022696+00:00'
+[2025-12-28T13:31:12.560+0000] {logging_mixin.py:188} INFO - Running SQL:
+-- VALIDATION CHECKS
+
+USE etl_project
+[2025-12-28T13:31:12.562+0000] {logging_mixin.py:188} INFO - Running SQL:
+-- Row count checks
+SELECT COUNT(*) AS raw_count FROM raw_amazon
+[2025-12-28T13:31:13.351+0000] {logging_mixin.py:188} INFO - Running SQL:
+SELECT COUNT(*) AS staging_count FROM stg_amazon
+[2025-12-28T13:31:13.367+0000] {logging_mixin.py:188} INFO - Running SQL:
+SELECT COUNT(*) AS curated_count FROM cur_amazon
+[2025-12-28T13:31:13.379+0000] {logging_mixin.py:188} INFO - Running SQL:
+-- Duplicate check (should return 0 rows)
+SELECT order_id, product_id, COUNT(*) AS cnt
+FROM cur_amazon
+GROUP BY order_id, product_id
+HAVING COUNT(*) > 1
+[2025-12-28T13:31:13.575+0000] {logging_mixin.py:188} INFO - Running SQL:
+-- Null checks
+SELECT COUNT(*) AS null_orders
+FROM cur_amazon
+WHERE order_id IS NULL
+[2025-12-28T13:31:13.598+0000] {logging_mixin.py:188} INFO - Running SQL:
+-- Category standardization check
+SELECT DISTINCT category
+FROM cur_amazon
+ORDER BY category
+[2025-12-28T13:31:13.714+0000] {logging_mixin.py:188} INFO - SQL file executed successfully
+[2025-12-28T13:31:13.715+0000] {python.py:202} INFO - Done. Returned value was: None
+[2025-12-28T13:31:13.727+0000] {taskinstance.py:1149} INFO - Marking task as SUCCESS. dag_id=amazon_sql_transformation_scheduler, task_id=validate_sql, execution_date=20251228T133048, start_date=20251228T133112, end_date=20251228T133113
+[2025-12-28T13:31:13.782+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2025-12-28T13:31:13.806+0000] {taskinstance.py:3312} INFO - 1 downstream tasks scheduled from follow-on schedule check
