@@ -1,11 +1,14 @@
 import mysql.connector
 
-# 🔴 ADD THIS
+# ✅ Metadata logger
 from metadata_logger import log_task
 
 
 def raw_to_staging():
     try:
+        # -----------------------------
+        # CONNECT TO MYSQL
+        # -----------------------------
         conn = mysql.connector.connect(
             host="host.docker.internal",
             user="airflow_user",
@@ -14,14 +17,21 @@ def raw_to_staging():
         )
         cursor = conn.cursor()
 
-        # Count RAW records
+        # -----------------------------
+        # COUNT RAW RECORDS
+        # -----------------------------
         cursor.execute("SELECT COUNT(*) FROM raw_amazon")
         records_read = cursor.fetchone()[0]
 
-        # Clear staging
+        # -----------------------------
+        # ✅ IMPORTANT FIX
+        # CLEAR STAGING BEFORE LOAD
+        # -----------------------------
         cursor.execute("TRUNCATE TABLE stg_amazon")
 
-        # Insert into STAGING
+        # -----------------------------
+        # INSERT RAW → STAGING
+        # -----------------------------
         insert_sql = """
         INSERT INTO stg_amazon (
             order_id, order_date, customer_id, customer_name,
@@ -37,7 +47,7 @@ def raw_to_staging():
             customer_name,
             product_id,
             product_name,
-            UPPER(category),      -- standardize category
+            UPPER(category),      -- ✅ Standardize category
             brand,
             CAST(quantity AS SIGNED),
             CAST(unit_price AS DECIMAL(10,2)),
@@ -56,7 +66,9 @@ def raw_to_staging():
 
         cursor.execute(insert_sql)
 
-        # Count STAGING records
+        # -----------------------------
+        # COUNT STAGING RECORDS
+        # -----------------------------
         cursor.execute("SELECT COUNT(*) FROM stg_amazon")
         records_written = cursor.fetchone()[0]
 
@@ -64,9 +76,9 @@ def raw_to_staging():
         cursor.close()
         conn.close()
 
-        print("RAW → STAGING completed")
+        print("✅ RAW → STAGING completed successfully")
 
-        # 🔴 LOG SUCCESS
+        # ✅ Metadata Logging
         log_task(
             "amazon_etl_pipeline",
             "raw_to_staging",
@@ -77,7 +89,6 @@ def raw_to_staging():
 
     except Exception as e:
 
-        # 🔴 LOG FAILURE
         log_task(
             "amazon_etl_pipeline",
             "raw_to_staging",

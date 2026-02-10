@@ -25,6 +25,7 @@ services:
     volumes:
       - ../:/workspace:rw
 
+
   postgres:
     image: postgres:15
     environment:
@@ -33,22 +34,25 @@ services:
       POSTGRES_DB: "${POSTGRES_DB:-airflow}"
     volumes:
       - postgres-db:/var/lib/postgresql/data
+
+    # ✅ HEALTHCHECK REQUIRED
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-airflow} -d ${POSTGRES_DB:-airflow}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-airflow}"]
       interval: 10s
       timeout: 5s
       retries: 5
 
+
   redis:
     image: redis:7
-    command: ["redis-server", "--save", "60", "1", "--appendonly", "no"]
-    volumes:
-      - redis-data:/data
+
+    # ✅ HEALTHCHECK REQUIRED
     healthcheck:
-      test: ["CMD-SHELL", "redis-cli ping"]
+      test: ["CMD", "redis-cli", "ping"]
       interval: 10s
       timeout: 5s
       retries: 5
+
 
   webserver:
     image: apache/airflow:2.8.3
@@ -57,30 +61,43 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
+
+      # ✅ TASK 8 PERFORMANCE TUNING
+      AIRFLOW__CORE__PARALLELISM: 16
+      AIRFLOW__CORE__DAG_CONCURRENCY: 8
+      AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG: 3
+
       AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW__CORE__FERNET_KEY}
       AIRFLOW__WEBSERVER__SECRET_KEY: ${AIRFLOW__WEBSERVER__SECRET_KEY}
+
       AIRFLOW__WEBSERVER__WORKERS: "2"
       AIRFLOW__WEBSERVER__RBAC: "True"
-      _PIP_ADDITIONAL_REQUIREMENTS: mysql-connector-python pandas rapidfuzz
+
+      _PIP_ADDITIONAL_REQUIREMENTS: >
+        mysql-connector-python pandas rapidfuzz
+        streamlit fastapi uvicorn sqlalchemy plotly
+        email-validator
+
       AIRFLOW_UID: "${AIRFLOW_UID}"
+
     volumes:
       - ../dags:/opt/airflow/dags
       - ../logs:/opt/airflow/logs
-      - ../plugins:/opt/airflow/plugins
       - ../scripts:/opt/airflow/scripts
       - ../data_models:/opt/airflow/data_models
-      - ../data:/opt/airflow/data          # ✅ FIX ADDED
+      - ../data:/opt/airflow/data
+      - ../dashboard:/opt/airflow/dashboard
+
     ports:
       - "8080:8080"
+      - "8501:8501"
+
     command: webserver
-    healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8080/health || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 6
+
 
   scheduler:
     image: apache/airflow:2.8.3
@@ -89,21 +106,36 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
+
+      # ✅ TASK 8 PERFORMANCE TUNING
+      AIRFLOW__CORE__PARALLELISM: 16
+      AIRFLOW__CORE__DAG_CONCURRENCY: 8
+      AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG: 3
+
       AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW__CORE__FERNET_KEY}
       AIRFLOW__WEBSERVER__SECRET_KEY: ${AIRFLOW__WEBSERVER__SECRET_KEY}
-      _PIP_ADDITIONAL_REQUIREMENTS: mysql-connector-python pandas rapidfuzz
+
+      _PIP_ADDITIONAL_REQUIREMENTS: >
+        mysql-connector-python pandas rapidfuzz
+        streamlit fastapi uvicorn sqlalchemy plotly
+        email-validator
+
       AIRFLOW_UID: "${AIRFLOW_UID}"
+
     volumes:
       - ../dags:/opt/airflow/dags
       - ../logs:/opt/airflow/logs
-      - ../plugins:/opt/airflow/plugins
       - ../scripts:/opt/airflow/scripts
       - ../data_models:/opt/airflow/data_models
-      - ../data:/opt/airflow/data          # ✅ FIX ADDED
+      - ../data:/opt/airflow/data
+      - ../dashboard:/opt/airflow/dashboard
+
     command: scheduler
+
 
 volumes:
   postgres-db:
